@@ -7,6 +7,8 @@ const { prefix, token } = require('./config.json');
 const config = require('./config.json');
 client.commands = new Discord.Collection();
 
+const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+
 client.once('ready', () => {
 	console.log('Ready!');
 });
@@ -35,6 +37,15 @@ client.on('message', message => {
 		message.reply('there was an error trying to execute that command!');
 	}
 });
+
+for (const file of eventFiles) {
+	const event = require(`./events/${file}`);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
+	}
+}
 
 client.login(config.token);
 
