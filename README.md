@@ -6,8 +6,6 @@ pkl is a bot for discord
 - ping
 - beep
 - passwordcode(pscode)
-- ban
-- kick
 - help
 - clear
 - hello
@@ -17,5 +15,4 @@ pkl is a bot for discord
 ```
 ***Events***
 - messageupdate
-- ready
 ```
